@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 @app.route("/")
-def hbnb():
+def home_page():
     """This method just returns simple text"""
 
     return "Hello HBNB!"
