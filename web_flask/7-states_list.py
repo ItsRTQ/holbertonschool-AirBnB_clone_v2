@@ -3,7 +3,6 @@
 from flask import Flask
 from flask import render_template
 from models import storage
-from models.state import State
 from os import getenv
 
 
@@ -15,12 +14,12 @@ app.url_map.strict_slashes = False
 def state_list():
     """This method fetchs data from storage to display the list of states"""
 
-    data = storage.all()
-    return render_template("7-states_list.html", states=data)
+    states = storage.all("State")
+    return render_template("7-states_list.html", states=states)
 
 
 @app.teardown_appcontext
-def close_storage():
+def close_storage(exception=None):
     """This method closes storage session if storage db"""
 
     if getenv('HBNB_TYPE_STORAGE') == "db":
