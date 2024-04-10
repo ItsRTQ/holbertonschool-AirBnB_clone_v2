@@ -15,7 +15,7 @@ app.url_map.strict_slashes = False
 def state_list():
     """This method fetchs data from storage to display the list of states"""
 
-    data = storage.all()
+    data = storage.all(State)
     return render_template("7-states_list.html", states=data)
 
 
