@@ -41,15 +41,12 @@ def python_text(text):
     return f"Python {text}"
 
 
-@app.route("/number", defaults={"n": None})
-@app.route("/number/<n>")
+@app.route("/number/<int:n>")
 def number(n):
     """This method creates a route with n  value if n is a number"""
 
-    if n.isdigit():
+    if isinstance(n, int):
         return f"{n} is a number"
-    else:
-        abort(404)
 
 
 if __name__ == "__main__":
