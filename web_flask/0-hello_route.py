@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from flask import Flask
 """ This modules creates a super basic flask local server """
+from flask import Flask
 
 
 app = Flask(__name__)
