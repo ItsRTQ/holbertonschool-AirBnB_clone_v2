@@ -23,10 +23,7 @@ def state_list():
     """This method fetchs data from storage to display the list of states"""
 
     states = storage.all("State")
-    data_to_sort = {}
-    for key, value in states.items():
-        data_to_sort[value["name"]] = value["id"]
-    sorted_data = dict(sorted(data_to_sort.items()))
+    sorted_data = sorted(states.values(), key=lambda state: state.name)
     return render_template("7-states_list.html", states=sorted_data)
 
 
