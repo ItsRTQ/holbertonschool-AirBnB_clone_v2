@@ -3,7 +3,7 @@
 from flask import Flask
 from flask import render_template
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 app.url_map.strict_slashes = False
 
 
@@ -51,8 +51,10 @@ def number(n):
 
 @app.route("/number_template/<int:n>")
 def number_template(n):
+    """this method display a html page if n is a int"""
+
     if isinstance(n, int):
-        return render_template('templates/5-number.html', n=n)
+        return render_template('5-number.html/', numb=n)
 
 
 if __name__ == "__main__":
