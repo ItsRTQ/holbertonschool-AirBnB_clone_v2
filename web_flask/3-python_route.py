@@ -31,7 +31,7 @@ def c_text(text):
 @app.route("/python", defaults={"text": None})
 @app.route("/python/<text>")
 def python_text(text):
-    """This method takes data from the url to print text"""
+    """This method takes data from the url to print text with default value"""
 
     if text:
         text = text.replace("_", " ")
