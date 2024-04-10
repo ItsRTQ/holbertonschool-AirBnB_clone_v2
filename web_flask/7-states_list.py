@@ -11,14 +11,6 @@ app = Flask(__name__, template_folder="templates")
 app.url_map.strict_slashes = False
 
 
-@app.teardown_appcontext
-def close_storage():
-    """This method closes storage session if storage db"""
-
-    if getenv('HBNB_TYPE_STORAGE') == "db":
-        storage.close()
-
-
 @app.route("/states_list")
 def state_list():
     """This method fetchs data from storage to display the list of states"""
@@ -29,6 +21,14 @@ def state_list():
         state.id = str(state.id)
         state.name = str(state.name)
     return render_template("7-states_list.html", states=sorted_data)
+
+
+@app.teardown_appcontext
+def close_storage():
+    """This method closes storage session if storage db"""
+
+    if getenv('HBNB_TYPE_STORAGE') == "db":
+        storage.close()
 
 
 if __name__ == "__main__":
