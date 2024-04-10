@@ -10,13 +10,6 @@ app = Flask(__name__, template_folder="templates")
 app.url_map.strict_slashes = False
 
 
-@app.route("/")
-def home_page():
-    """This method send the data for the homepage"""
-
-    return "Hello HBNB!"
-
-
 @app.teardown_appcontext
 def close_storage():
     """This method closes storage session if storage db"""
