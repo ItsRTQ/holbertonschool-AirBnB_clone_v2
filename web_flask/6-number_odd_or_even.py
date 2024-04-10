@@ -63,10 +63,10 @@ def even_or_odd(n):
 
     if isinstance(n, int):
         if n % 2 == 0:
-            n_type = "even"
+            ntype = "even"
         else:
-            n_type = "odd"
-        return render_template("6-number_odd_or_even.html", numb=n, n_type=n_type)
+            ntype = "odd"
+        return render_template("6-number_odd_or_even.html", num=n, ntype=ntype)
 
 
 if __name__ == "__main__":
