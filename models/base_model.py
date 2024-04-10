@@ -3,55 +3,46 @@
 import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, DATETIME
-from models import storage_type
+from sqlalchemy import Column, String, DateTime
 
 Base = declarative_base()
 
 
 class BaseModel:
-    """A base class for all hbnb models
-
-    Attributes:
-        id (sqlalchemy String): The BaseModel id.
-        created_at (sqlalchemy DateTime): The datetime at creation.
-        updated_at (sqlalchemy DateTime): The datetime of last update.
-    """
-    id = Column(String(60),
-                nullable=False,
-                primary_key=True,
-                unique=True)
-    created_at = Column(DATETIME,
-                        nullable=False,
-                        default=datetime.utcnow())
-    updated_at = Column(DATETIME,
-                        nullable=False,
-                        default=datetime.utcnow())
+    """A base class for all hbnb models"""
+    id = Column(String(60), nullable=False, primary_key=True, unique=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
-        if not kwargs:
+        if not kwargs or ("updated_at" not in kwargs and
+                          "created_at" not in kwargs):
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         else:
-            for k in kwargs:
-                if k in ['created_at', 'updated_at']:
-                    setattr(self, k, datetime.fromisoformat(kwargs[k]))
-                elif k != '__class__':
-                    setattr(self, k, kwargs[k])
-            if storage_type == 'db':
-                if not hasattr(kwargs, 'id'):
-                    setattr(self, 'id', str(uuid.uuid4()))
-                if not hasattr(kwargs, 'created_at'):
-                    setattr(self, 'created_at', datetime.now())
-                if not hasattr(kwargs, 'updated_at'):
-                    setattr(self, 'updated_at', datetime.now())
+            if 'id' not in kwargs:
+                self.id = str(uuid.uuid4())
+
+            if 'updated_at' in kwargs:
+                kwargs['updated_at'] = datetime.strptime(
+                    kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+            else:
+                self.updated_at = datetime.now()
+            if 'created_at' in kwargs:
+                kwargs['created_at'] = datetime.strptime(
+                    kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+            else:
+                self.created_at = datetime.now()
+            if '__class__' in kwargs:
+                del kwargs['__class__']
+            self.__dict__.update(kwargs)
 
     def __str__(self):
         """Returns a string representation of the instance"""
-        return '[{}] ({}) {}'.format(
-            self.__class__.__name__, self.id, self.__dict__)
+        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
+        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
@@ -62,16 +53,18 @@ class BaseModel:
 
     def to_dict(self):
         """Convert instance into dict format"""
-        dct = self.__dict__.copy()
-        dct['__class__'] = self.__class__.__name__
-        for k in dct:
-            if type(dct[k]) is datetime:
-                dct[k] = dct[k].isoformat()
-        if '_sa_instance_state' in dct.keys():
-            del (dct['_sa_instance_state'])
-        return dct
+        dictionary = self.__dict__.copy()
+
+        if "_sa_instance_state" in dictionary:
+            del dictionary["_sa_instance_state"]
+
+        dictionary.update({'__class__':
+                          (str(type(self)).split('.')[-1]).split('\'')[0]})
+        dictionary['created_at'] = self.created_at.isoformat()
+        dictionary['updated_at'] = self.updated_at.isoformat()
+        return dictionary
 
     def delete(self):
-        '''deletes the current instance from the storage'''
+        """Deletes the current instance from the storage"""
         from models import storage
         storage.delete(self)
