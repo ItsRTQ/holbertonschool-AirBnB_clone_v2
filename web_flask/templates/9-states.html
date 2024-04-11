@@ -5,11 +5,11 @@
 </head>
 <body>
     {% if state %}
-        <h1>State: <b>{{ state.name }}</b></h1>
+        <h1>State: {{ state.name }}</h1>
         <h3>Cities:</h3>
         <ul>
             {% for city in cities %}
-            <li>{{ city.id }}: <b>{{ city.name }}</b></li>
+            <li>{{ city.id }}: {{ city.name }}</li>
             {% endfor %}
         </ul>
     {% else %}
