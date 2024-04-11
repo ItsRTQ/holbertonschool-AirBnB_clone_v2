@@ -7,7 +7,7 @@ from models.state import State, City
 from os import getenv
 
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__)
 
 
 @app.route("/cities_by_states", strict_slashes=False)
