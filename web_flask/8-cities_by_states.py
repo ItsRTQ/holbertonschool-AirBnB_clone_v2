@@ -14,8 +14,14 @@ app = Flask(__name__)
 def cities_list():
     """This method uses storage to display the list of cities by states"""
 
-    states = storage.all(State)
-    return render_template("8-cities_by_states.html", states=states)
+    states = list(storage.all(State).values())
+    states.sort(key=lambda x: x.name)
+    for state in states:
+        state.cities.sort(key=lambda x: x.name)
+    sorted = {
+        'states': states
+    }
+    return render_template('8-cities_by_states.html', **sorted)
 
 
 @app.teardown_appcontext
