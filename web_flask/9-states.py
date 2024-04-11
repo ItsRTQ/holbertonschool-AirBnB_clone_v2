@@ -23,8 +23,8 @@ def states(id):
 
     if id is None:
         states = storage.all(State)
-        sorted_states = sorted(states.values(), key=lambda state: state.name)
-        return render_template('9-states.html', states=sorted_states)
+        sort = sorted(states.values(), key=lambda state: state.name)
+        return render_template('9-states.html', states=sort, state=None)
     else:
         states = storage.all(State)
         for key, val in states.items():
