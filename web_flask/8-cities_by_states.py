@@ -7,21 +7,16 @@ from models.state import State, City
 from os import getenv
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
+app.url_map.strict_slashes = False
 
 
-@app.route("/cities_by_states", strict_slashes=False)
-def cities_list():
+@app.route("/cities_by_states")
+def cities_by_states():
     """This method uses storage to display the list of cities by states"""
 
-    states = list(storage.all(State).values())
-    states.sort(key=lambda x: x.name)
-    for state in states:
-        state.cities.sort(key=lambda x: x.name)
-    sorted = {
-        'states': states
-    }
-    return render_template('8-cities_by_states.html', **sorted)
+    states = storage.all(State)
+    return render_template("8-cities_by_states.html", states=states)
 
 
 @app.teardown_appcontext
