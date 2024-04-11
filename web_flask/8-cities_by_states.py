@@ -12,7 +12,7 @@ app.url_map.strict_slashes = False
 
 
 @app.route("/cities_by_states")
-def cities_list():
+def cities_by_states():
     """This method uses storage to display the list of cities by states"""
 
     states = storage.all(State)
