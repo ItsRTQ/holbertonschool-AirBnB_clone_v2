@@ -22,7 +22,7 @@ def filters_html():
     """Display flask web application, based on storage fetch data"""
 
     states = storage.all(State)
-    return render_template("10-hbnb_filters.html")
+    return render_template("10-hbnb_filters.html", state=states)
 
 
 if __name__ == "__main__":

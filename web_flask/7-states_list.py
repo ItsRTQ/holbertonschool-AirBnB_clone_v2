@@ -15,9 +15,9 @@ app.url_map.strict_slashes = False
 def state_list():
     """This method fetchs data from storage to display the list of states"""
 
-    states = storage.all()
-    sorted_data = sorted(states.values(), key=lambda state: state.name)
-    return render_template("7-states_list.html", states=sorted_data)
+    statess = storage.all(State)
+    sort = sorted(statess.values(), key=lambda state: state.name)
+    return render_template("7-states_list.html", states=sort)
 
 
 @app.teardown_appcontext
