@@ -7,8 +7,7 @@ from models.state import State
 from os import getenv
 
 
-app = Flask(__name__, template_folder="templates")
-app.url_map.strict_slashes = False
+app = Flask(__name__)
 
 
 @app.route("/states_list")
@@ -29,4 +28,5 @@ def close_storage():
 
 
 if __name__ == "__main__":
+    app.url_map.strict_slashes = False
     app.run(host="0.0.0.0", port=5000)
