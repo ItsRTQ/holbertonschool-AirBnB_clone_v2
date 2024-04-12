@@ -16,9 +16,7 @@ def cities_by_states():
     """This method uses storage to display the list of cities by states"""
 
     states = storage.all(State)
-    for key, val in states.items():
-        sort = sorted(val.cities, key=lambda city: city.name)
-        return render_template('9-states.html', state=val, cities=sort)
+    return render_template('8-states.html', state=states)
 
 
 @app.teardown_appcontext
@@ -30,4 +28,4 @@ def close_storage():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port=5000)
