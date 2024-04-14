@@ -3,7 +3,7 @@
 from flask import Flask
 from flask import render_template
 from models import storage
-from models.state import State, City
+from models.state import State
 from os import getenv
 
 
@@ -16,8 +16,7 @@ def cities_by_states():
     """This method uses storage to display the list of cities by states"""
 
     states = storage.all(State)
-    sorted_states = sorted(states.values(), key=lambda state: state.name)
-    return render_template('8-cities_by_states.html', states=sorted_states)
+    return render_template('8-cities_by_states.html', states=states)
 
 
 @app.teardown_appcontext
