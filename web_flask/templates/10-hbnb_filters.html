@@ -1,49 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>AirBnB Clone</title>
-		<link rel="shortcut icon" href="../static/images/icon.png" >
-		<link rel="stylesheet" href="../static/styles/4-common.css"/>
-		<link rel="stylesheet" href="../static/styles/3-header.css"/>
-		<link rel="stylesheet" href="../static/styles/3-footer.css"/>
-		<link rel="stylesheet" href="../static/styles/6-filters.css"/>
-	</head>
-	<body>
-		<header>
-			<div id="header_logo"></div>
-		</header>
-		<div class="container">
-			<section class="filters">
-				<button>Search</button>
-				<div class="locations">
-					<h3>&nbsp;</h3>
-					<h4>&nbsp;</h4>
-					<ul class="popover">
+<!DOCTYPE HTML>
+<HTML LANG="en">
+	<HEAD>
+		<TITLE>AirBnB Clone</TITLE>
+		<LINK rel="shortcut icon" href="../static/images/icon.png" >
+		<LINK rel="stylesheet" href="../static/styles/4-common.css"/>
+		<LINK rel="stylesheet" href="../static/styles/3-header.css"/>
+		<LINK rel="stylesheet" href="../static/styles/3-footer.css"/>
+		<LINK rel="stylesheet" href="../static/styles/6-filters.css"/>
+	</HEAD>
+	<BODY>
+		<HEADER>
+			<DIV id="header_logo"></DIV>
+		</HEADER>
+		<DIV class="container">
+			<SECTION class="filters">
+				<BUTTON>Search</BUTTON>
+				<DIV class="locations">
+					<H3>&nbsp;</H3>
+					<H4>&nbsp;</H4>
+					<UL class="popover">
 						{% for state in states %}
-						<li>
-							<h2>{{ state.name }}</h2>
-							<ul>
+						<LI>
+							<H2>{{ state.name }}</H2>
+							<UL>
 								{% for city in state.cities if state.cities %}
-									<li><h4>{{ city.name }}</h4></li>
+									<LI><H4>{{ city.name }}</H4></LI>
 								{% endfor %}
-							</ul>
-						</li>
+							</UL>
+						</LI>
 						{% endfor %}
-					</ul>
-				</div>
-				<div class="amenities">
-					<h3>&nbsp;</h3>
-					<h4>&nbsp;</h4>
-					<ul class="popover">
+					</UL>
+				</DIV>
+				<DIV class="amenities">
+					<H3>&nbsp;</H3>
+					<H4>&nbsp;</H4>
+					<UL class="popover">
 						{% for amenity in amenities %}
-							<li><h4>{{ amenity.name }}</h4></li>
+							<LI><H4>{{ amenity.name }}</H4></LI>
 						{% endfor %}
-					</ul>
-				</div>
-			</section>
-		</div>
-		<footer>
-			<p>Holberton School</p>
-		</footer>
-	</body>
-</html>
+					</UL>
+				</DIV>
+			</SECTION>
+		</DIV>
+		<FOOTER>
+			<P>Holberton School</P>
+		</FOOTER>
+	</BODY>
+</HTML>

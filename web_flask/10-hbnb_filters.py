@@ -10,6 +10,8 @@ app = Flask(__name__)
 
 
 def sort_data(to_sort):
+    """sorts the data loaded from storage"""
+
     return sorted(to_sort, key=lambda x: x.name)
 
 
