@@ -19,7 +19,7 @@ def cities_by_states():
 
 
 @app.teardown_appcontext
-def close_storage():
+def close_storage(exception):
     """This method closes storage session if storage db"""
 
     storage.close()
