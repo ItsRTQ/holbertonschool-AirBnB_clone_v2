@@ -20,7 +20,7 @@ def state_list():
 
 
 @app.teardown_appcontext
-def close_storage():
+def close_storage(exception):
     """This method closes storage session if storage db"""
 
     if getenv('HBNB_TYPE_STORAGE') == "db":
