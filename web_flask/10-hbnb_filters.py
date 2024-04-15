@@ -26,7 +26,7 @@ def sort_data(to_sort={}):
 
 
 @app.teardown_appcontext
-def teardown_db(exception=None):
+def teardown_db(exception):
     """This method will close the SQLAlchemy session on teardown"""
 
     if getenv('HBNB_TYPE_STORAGE') == "db":
